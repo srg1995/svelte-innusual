@@ -1,4 +1,5 @@
 <script lang="ts">
+	import DemoCard from '#lib/components/DemoCard.svelte';
 	import { invalidateAll } from '$app/navigation';
 	import { page } from '$app/state';
 	import type { PageProps } from './$types';
@@ -33,52 +34,61 @@
 </script>
 
 {#if page.url.searchParams.get('aviso') === 'login'}
-	<p class="rounded-lg bg-brand-50 p-3 text-sm text-brand-700">
+	<p class="mb-5 rounded-lg bg-brand-50 p-3 text-sm text-brand-700">
 		Te redirigió el hook <code>handle</code>: la zona privada necesita sesión.
 	</p>
 {/if}
 
-<section class="space-y-2">
-	<h2 class="text-sm font-medium text-ink-900">handle: sesión con cookie y locals</h2>
-	{#if data.user}
-		<p class="text-sm text-ink-500">
-			Hola, {data.user.name}.
-			<button onclick={logout} class="underline">Cerrar sesión</button>
+<div class="grid gap-5 lg:grid-cols-2">
+	<DemoCard
+		title="handle: sesión"
+		description="Lee la cookie, la deja en locals y protege la zona privada."
+	>
+		{#if data.user}
+			<p class="text-sm text-ink-500">
+				Hola, {data.user.name}.
+				<button onclick={logout} class="underline">Cerrar sesión</button>
+			</p>
+		{:else}
+			<form onsubmit={login} class="flex gap-2">
+				<input
+					bind:value={name}
+					placeholder="Tu nombre"
+					class="w-full rounded-lg border border-ink-200 px-3 py-2"
+				/>
+				<button class="rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white"
+					>Entrar</button
+				>
+			</form>
+		{/if}
+	</DemoCard>
+
+	<DemoCard
+		title="handle: cabeceras"
+		description="x-response-time y x-request-id los añade un handle."
+	>
+		<button onclick={callEcho} class="rounded-lg border border-ink-200 px-3 py-1 text-sm">
+			Llamar a /api/echo
+		</button>
+		{#if result}<p class="text-xs text-ink-500">{result}</p>{/if}
+	</DemoCard>
+
+	<DemoCard title="handleFetch" description="El fetch de load lleva una cabecera extra.">
+		<p class="text-xs text-ink-500">
+			Petición de la página: <code>{data.requestId}</code> · el endpoint recibió
+			<code>x-origin-request-id: {data.echo.originRequestId}</code>
 		</p>
-	{:else}
-		<form onsubmit={login} class="flex gap-2">
-			<input
-				bind:value={name}
-				placeholder="Tu nombre"
-				class="w-full rounded-lg border border-ink-200 px-3 py-2"
-			/>
-			<button class="rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white">Entrar</button>
-		</form>
-	{/if}
-</section>
+	</DemoCard>
 
-<section class="space-y-2">
-	<h2 class="text-sm font-medium text-ink-900">handle: cabeceras de respuesta</h2>
-	<button onclick={callEcho} class="rounded-lg border border-ink-200 px-3 py-1 text-sm">
-		Llamar a /api/echo
-	</button>
-	{#if result}<p class="text-xs text-ink-500">{result}</p>{/if}
-</section>
-
-<section class="space-y-1">
-	<h2 class="text-sm font-medium text-ink-900">handleFetch: el fetch de load lleva una cabecera extra</h2>
-	<p class="text-xs text-ink-500">
-		Petición de la página: <code>{data.requestId}</code> · el endpoint recibió
-		<code>x-origin-request-id: {data.echo.originRequestId}</code>
-	</p>
-</section>
-
-<section class="space-y-1">
-	<h2 class="text-sm font-medium text-ink-900">reroute</h2>
-	<p class="text-xs text-ink-500">
-		El enlace «URL antigua» muestra la página <code>nuevo</code> sin cambiar la URL.
-	</p>
-</section>
+	<DemoCard
+		title="reroute"
+		description="Una URL puede renderizar otra ruta sin cambiar en la barra."
+	>
+		<p class="text-sm text-ink-500">
+			El enlace «URL antigua» muestra la página <code>nuevo</code> sin cambiar la URL.
+		</p>
+	</DemoCard>
+</div>
 
 <!--
 

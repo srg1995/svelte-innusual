@@ -1,26 +1,35 @@
 <script lang="ts">
+	import SlideShell from '#lib/components/SlideShell.svelte';
 	import type { LayoutProps } from './$types';
 	import { base } from './paths';
 
 	let { data, children }: LayoutProps = $props();
 </script>
 
-<main class="grid min-h-screen place-items-start justify-center bg-ink-50 p-8 pt-16">
-	<div class="w-full max-w-xl space-y-5 rounded-2xl border border-ink-200 bg-white p-6 shadow-md">
-		<header>
-			<h1 class="text-2xl font-semibold text-ink-900">08 · Hooks</h1>
-			<p class="text-sm text-ink-500">
-				Petición <code>{data.requestId}</code> ·
-				{data.user ? `sesión de ${data.user.name}` : 'sin sesión'}
-			</p>
-		</header>
+<SlideShell
+	number="08"
+	title="Hooks"
+	description="Petición {data.requestId} · {data.user
+		? `sesión de ${data.user.name}`
+		: 'sin sesión'}"
+>
+	<nav class="mb-5 flex flex-wrap gap-2 text-sm">
+		<a
+			href={base}
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>Inicio</a
+		>
+		<a
+			href="{base}/privado"
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>Zona privada</a
+		>
+		<a
+			href="{base}/antiguo"
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>URL antigua (reroute)</a
+		>
+	</nav>
 
-		<nav class="flex flex-wrap gap-3 text-sm text-brand-600 underline">
-			<a href={base}>Inicio</a>
-			<a href="{base}/privado">Zona privada</a>
-			<a href="{base}/antiguo">URL antigua (reroute)</a>
-		</nav>
-
-		{@render children()}
-	</div>
-</main>
+	{@render children()}
+</SlideShell>

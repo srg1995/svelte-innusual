@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SlideShell from '#lib/components/SlideShell.svelte';
+	import DemoCard from '#lib/components/DemoCard.svelte';
 	import { untrack } from 'svelte';
 	import AddToCartButton from '#lib/components/AddToCartButton.svelte';
 	import CartBadge from '#lib/components/CartBadge.svelte';
@@ -46,88 +48,99 @@
 	}
 </script>
 
-<main class="grid min-h-screen place-items-center bg-ink-50 p-8">
-	<div class="w-full max-w-xl rounded-2xl border border-ink-200 bg-white p-6 shadow-md">
-		<h1 class="mb-1 text-2xl font-semibold text-ink-900">01 · Reactividad mediante runes</h1>
-		<p class="mb-5 text-sm text-ink-500">
-			<code>$state</code>, <code>$derived</code> y <code>$effect</code>
-		</p>
-
-		<ul class="mb-4 space-y-2">
-			{#each items as item (item.id)}
-				<li class="flex items-center gap-3">
-					<span class="w-28 text-ink-900">{item.name}</span>
-					<span class="w-16 text-ink-500">{item.price} €</span>
-					<!-- bind sobre una propiedad anidada: mutación directa del proxy -->
-					<input
-						type="number"
-						min="0"
-						bind:value={item.qty}
-						class="w-20 rounded-lg border border-ink-200 px-2 py-1"
-					/>
-				</li>
-			{/each}
-		</ul>
-
-		<button
-			onclick={addItem}
-			class="mb-5 rounded-xl bg-brand-500 px-4 py-2 text-sm font-medium text-white"
+<SlideShell
+	number="01"
+	title="Reactividad mediante runes"
+	description="$state, $derived y $effect, y cómo exportar estado compartido y context."
+>
+	<div class="grid gap-5 lg:grid-cols-2">
+		<DemoCard
+			title="$state, $derived y $effect"
+			description="Un carrito: el total se recalcula solo y cada cambio queda registrado."
 		>
-			Añadir producto
-		</button>
+			<ul class="space-y-2">
+				{#each items as item (item.id)}
+					<li class="flex items-center gap-3">
+						<span class="w-28 text-ink-900">{item.name}</span>
+						<span class="w-16 text-ink-500">{item.price} €</span>
+						<!-- bind sobre una propiedad anidada: mutación directa del proxy -->
+						<input
+							type="number"
+							min="0"
+							bind:value={item.qty}
+							class="w-20 rounded-lg border border-ink-200 px-2 py-1"
+						/>
+					</li>
+				{/each}
+			</ul>
 
-		<label class="mb-4 block text-sm text-ink-500">
-			Descuento: {discount} %
-			<input type="range" min="0" max="50" bind:value={discount} class="w-full" />
-		</label>
+			<button
+				onclick={addItem}
+				class="rounded-xl bg-brand-500 px-4 py-2 text-sm font-medium text-white"
+			>
+				Añadir producto
+			</button>
 
-		<div class="rounded-lg bg-ink-50 p-4 text-sm text-ink-900">
-			<p>Subtotal: {subtotal.toFixed(2)} €</p>
-			<p class="font-semibold">Total: {total.toFixed(2)} €</p>
-			<p class="text-ink-500">{summary}</p>
-		</div>
+			<label class="block text-sm text-ink-500">
+				Descuento: {discount} %
+				<input type="range" min="0" max="50" bind:value={discount} class="w-full" />
+			</label>
 
-		<h2 class="mt-5 mb-1 text-sm font-medium text-ink-900">Registro del $effect</h2>
-		<ul class="text-xs text-ink-500">
-			{#each log as entry, i (i)}
-				<li>{entry}</li>
-			{/each}
-		</ul>
-
-		<hr class="my-6 border-ink-200" />
-
-		<h2 class="mb-1 text-lg font-semibold text-ink-900">Estado compartido</h2>
-		<p class="mb-3 text-sm text-ink-500">
-			Las runes funcionan en archivos <code>.svelte.ts</code>: el estado se exporta e importa desde
-			cualquier componente, sin Provider ni props.
-		</p>
-		<div class="mb-2 flex items-center justify-between">
-			<div class="flex gap-2">
-				<AddToCartButton name="Camiseta" price={15} />
-				<AddToCartButton name="Gorra" price={10} />
+			<div class="rounded-lg bg-ink-50 p-4 text-sm text-ink-900">
+				<p>Subtotal: {subtotal.toFixed(2)} €</p>
+				<p class="font-semibold">Total: {total.toFixed(2)} €</p>
+				<p class="text-ink-500">{summary}</p>
 			</div>
-			<CartBadge />
-		</div>
-		<p class="text-sm text-ink-500">
-			Total del carrito (leído desde la página): {cart.total} €
-			<button onclick={() => cart.clear()} class="ml-2 underline">vaciar</button>
-		</p>
+		</DemoCard>
 
-		<h2 class="mt-6 mb-1 text-lg font-semibold text-ink-900">Context</h2>
-		<p class="mb-3 text-sm text-ink-500">
-			Cuando el estado debe ser por subárbol (o por petición en SSR), se publica con
-			<code>createContext</code>. Cada proveedor tiene su propia instancia.
-		</p>
-		<div class="grid gap-3 sm:grid-cols-2">
-			<CurrencyProvider label="Tienda A">
-				<PriceTag amount={cart.total} />
-			</CurrencyProvider>
-			<CurrencyProvider label="Tienda B">
-				<PriceTag amount={cart.total} />
-			</CurrencyProvider>
+		<div class="space-y-5">
+			<DemoCard
+				title="Registro del $effect"
+				description="Se ejecuta cada vez que cambia el total. Usa untrack para no depender de lo que escribe."
+			>
+				<ul class="text-xs text-ink-500">
+					{#each log as entry, i (i)}
+						<li>{entry}</li>
+					{:else}
+						<li>Sin entradas todavía.</li>
+					{/each}
+				</ul>
+			</DemoCard>
+
+			<DemoCard
+				title="Estado compartido"
+				description="Las runes funcionan en archivos .svelte.ts: el estado se exporta e importa desde cualquier componente, sin Provider ni props."
+			>
+				<div class="flex items-center justify-between">
+					<div class="flex gap-2">
+						<AddToCartButton name="Camiseta" price={15} />
+						<AddToCartButton name="Gorra" price={10} />
+					</div>
+					<CartBadge />
+				</div>
+				<p class="text-sm text-ink-500">
+					Total del carrito (leído desde la página): {cart.total} €
+					<button onclick={() => cart.clear()} class="ml-2 underline">vaciar</button>
+				</p>
+			</DemoCard>
 		</div>
+
+		<DemoCard
+			wide
+			title="Context"
+			description="Cuando el estado debe ser por subárbol (o por petición en SSR) se publica con createContext. Cada proveedor tiene su propia instancia."
+		>
+			<div class="grid gap-3 sm:grid-cols-2">
+				<CurrencyProvider label="Tienda A">
+					<PriceTag amount={cart.total} />
+				</CurrencyProvider>
+				<CurrencyProvider label="Tienda B">
+					<PriceTag amount={cart.total} />
+				</CurrencyProvider>
+			</div>
+		</DemoCard>
 	</div>
-</main>
+</SlideShell>
 
 <!--
 

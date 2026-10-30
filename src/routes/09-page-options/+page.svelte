@@ -1,19 +1,35 @@
-<table class="w-full text-left text-sm">
-	<thead class="text-ink-500">
-		<tr><th class="py-1">Opción</th><th>Valor por defecto</th><th>Qué hace</th></tr>
-	</thead>
-	<tbody class="text-ink-900">
-		<tr><td class="py-1"><code>prerender</code></td><td>false</td><td>Genera el HTML en la compilación</td></tr>
-		<tr><td class="py-1"><code>ssr</code></td><td>true</td><td>Renderiza en el servidor</td></tr>
-		<tr><td class="py-1"><code>csr</code></td><td>true</td><td>Envía JavaScript e hidrata en el navegador</td></tr>
-		<tr><td class="py-1"><code>trailingSlash</code></td><td>'never'</td><td>Barra final en la URL</td></tr>
-	</tbody>
-</table>
+<script lang="ts">
+	import DemoCard from '#lib/components/DemoCard.svelte';
+</script>
 
-<p class="text-sm text-ink-500">
-	Cada enlace de arriba es una ruta con una opción distinta. Se pueden definir en un layout y se
-	heredan por las rutas hijas, que pueden sobrescribirlas.
-</p>
+<DemoCard
+	title="Opciones"
+	description="Cada enlace de arriba es una ruta con una opción distinta. Las rutas hijas heredan las del layout y pueden sobrescribirlas."
+>
+	<table class="w-full text-left text-sm">
+		<thead class="text-ink-500">
+			<tr><th class="py-1">Opción</th><th>Por defecto</th><th>Qué hace</th></tr>
+		</thead>
+		<tbody class="divide-y divide-ink-100 text-ink-900">
+			<tr
+				><td class="py-2"><code>prerender</code></td><td>false</td><td
+					>Genera el HTML en la compilación</td
+				></tr
+			>
+			<tr><td class="py-2"><code>ssr</code></td><td>true</td><td>Renderiza en el servidor</td></tr>
+			<tr
+				><td class="py-2"><code>csr</code></td><td>true</td><td
+					>Envía JavaScript e hidrata en el navegador</td
+				></tr
+			>
+			<tr
+				><td class="py-2"><code>trailingSlash</code></td><td>'never'</td><td
+					>Barra final en la URL</td
+				></tr
+			>
+		</tbody>
+	</table>
+</DemoCard>
 
 <!--
 

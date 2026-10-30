@@ -1,4 +1,5 @@
 <script lang="ts">
+	import DemoCard from '#lib/components/DemoCard.svelte';
 	import { beforeNavigate, goto, invalidateAll, preloadData } from '$app/navigation';
 	import { base } from './paths';
 
@@ -23,65 +24,73 @@
 	}
 </script>
 
-<section class="space-y-2">
-	<h2 class="text-sm font-medium text-ink-900">Errores</h2>
-	<ul class="space-y-1 text-sm">
-		<li>
-			<a href="{base}/esperado" class="text-brand-600 underline">Error esperado</a>
-			<span class="text-ink-500">· error(404, mensaje, &lbrace; code &rbrace;): el usuario ve el mensaje</span>
-		</li>
-		<li>
-			<a href="{base}/inesperado" class="text-brand-600 underline">Error inesperado</a>
-			<span class="text-ink-500">· excepción: handleError oculta el detalle y añade un id</span>
-		</li>
-		<li>
-			<a href="{base}/redirigir" class="text-brand-600 underline">Redirección</a>
-			<span class="text-ink-500">· redirect(303, …) desde load</span>
-		</li>
-	</ul>
-</section>
+<div class="grid gap-5 lg:grid-cols-2">
+	<DemoCard
+		title="Errores"
+		description="Tres formas de salir de un load: error esperado, excepción y redirect."
+	>
+		<ul class="space-y-2 text-sm">
+			<li>
+				<a href="{base}/esperado" class="text-brand-600 underline">Error esperado</a>
+				<span class="block text-ink-500"
+					>error(404, mensaje, código): el usuario ve el mensaje.</span
+				>
+			</li>
+			<li>
+				<a href="{base}/inesperado" class="text-brand-600 underline">Error inesperado</a>
+				<span class="block text-ink-500"
+					>Excepción: handleError oculta el detalle y añade un id.</span
+				>
+			</li>
+			<li>
+				<a href="{base}/redirigir" class="text-brand-600 underline">Redirección</a>
+				<span class="block text-ink-500">redirect(303, …) desde load.</span>
+			</li>
+		</ul>
+	</DemoCard>
 
-<section class="space-y-2">
-	<h2 class="text-sm font-medium text-ink-900">Navegación programática</h2>
-	<div class="flex flex-wrap gap-2 text-sm">
-		<button
-			onclick={() => goto(`${base}/destino?modo=goto`)}
-			class="rounded-lg border border-ink-200 px-3 py-1"
-		>
-			goto
-		</button>
-		<button
-			onclick={() => goto(`${base}/destino?modo=replace`, { replaceState: true })}
-			class="rounded-lg border border-ink-200 px-3 py-1"
-		>
-			goto + replaceState
-		</button>
-		<button
-			onclick={() => goto(`${base}/destino?modo=invalidate`, { invalidateAll: true })}
-			class="rounded-lg border border-ink-200 px-3 py-1"
-		>
-			goto + invalidateAll
-		</button>
-		<button onclick={preload} class="rounded-lg border border-ink-200 px-3 py-1">preloadData</button>
-		<button onclick={() => invalidateAll()} class="rounded-lg border border-ink-200 px-3 py-1">
-			invalidateAll
-		</button>
-	</div>
-	{#if preloaded}<p class="text-xs text-ink-500">{preloaded}</p>{/if}
-</section>
+	<DemoCard title="Navegación programática" description="Funciones de $app/navigation.">
+		<div class="flex flex-wrap gap-2 text-sm">
+			<button
+				onclick={() => goto(`${base}/destino?modo=goto`)}
+				class="rounded-lg border border-ink-200 px-3 py-1"
+			>
+				goto
+			</button>
+			<button
+				onclick={() => goto(`${base}/destino?modo=replace`, { replaceState: true })}
+				class="rounded-lg border border-ink-200 px-3 py-1"
+			>
+				goto + replaceState
+			</button>
+			<button
+				onclick={() => goto(`${base}/destino?modo=invalidate`, { invalidateAll: true })}
+				class="rounded-lg border border-ink-200 px-3 py-1"
+			>
+				goto + invalidateAll
+			</button>
+			<button onclick={preload} class="rounded-lg border border-ink-200 px-3 py-1"
+				>preloadData</button
+			>
+			<button onclick={() => invalidateAll()} class="rounded-lg border border-ink-200 px-3 py-1">
+				invalidateAll
+			</button>
+		</div>
+		{#if preloaded}<p class="text-xs text-ink-500">{preloaded}</p>{/if}
+	</DemoCard>
 
-<section class="space-y-2">
-	<h2 class="text-sm font-medium text-ink-900">beforeNavigate + cancel()</h2>
-	<textarea
-		bind:value={draft}
-		rows="2"
-		placeholder="Escribe algo y luego intenta navegar a otra página"
-		class="w-full rounded-lg border border-ink-200 px-3 py-2"
-	></textarea>
-	<p class="text-xs text-ink-500">
-		Si hay texto, cualquier navegación (enlaces, goto, atrás) pide confirmación.
-	</p>
-</section>
+	<DemoCard
+		wide
+		title="beforeNavigate + cancel()"
+		description="Si hay texto, cualquier navegación (enlaces, goto, atrás) pide confirmación."
+	>
+		<textarea
+			bind:value={draft}
+			rows="2"
+			placeholder="Escribe algo y luego intenta navegar a otra página"
+			class="w-full rounded-lg border border-ink-200 px-3 py-2"></textarea>
+	</DemoCard>
+</div>
 
 <!--
 

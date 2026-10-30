@@ -1,7 +1,13 @@
 // Datos de ejemplo. Vive en src/lib/server: SvelteKit prohíbe importarlo desde código de cliente.
 
 export type Category = { id: string; label: string };
-export type Product = { id: number; name: string; price: number; category: string; description: string };
+export type Product = {
+	id: number;
+	name: string;
+	price: number;
+	category: string;
+	description: string;
+};
 export type Review = { author: string; rating: number; text: string };
 
 export const categories: Category[] = [
@@ -13,7 +19,13 @@ const products: Product[] = [
 	{ id: 1, name: 'Camiseta', price: 15, category: 'ropa', description: 'Algodón orgánico.' },
 	{ id: 2, name: 'Sudadera', price: 35, category: 'ropa', description: 'Con capucha y bolsillo.' },
 	{ id: 3, name: 'Gorra', price: 10, category: 'accesorios', description: 'Ajustable.' },
-	{ id: 4, name: 'Mochila', price: 45, category: 'accesorios', description: '20 litros, impermeable.' }
+	{
+		id: 4,
+		name: 'Mochila',
+		price: 45,
+		category: 'accesorios',
+		description: '20 litros, impermeable.'
+	}
 ];
 
 const reviews: Record<number, Review[]> = {
