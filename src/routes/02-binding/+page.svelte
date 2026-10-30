@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SlideShell from '#lib/components/SlideShell.svelte';
+	import DemoCard from '#lib/components/DemoCard.svelte';
 	import BindableCounter from '#lib/components/BindableCounter.svelte';
 
 	// bind:value / bind:checked: sincronización bidireccional con inputs
@@ -31,15 +33,16 @@
 	};
 </script>
 
-<main class="grid min-h-screen place-items-center bg-ink-50 p-8">
-	<div class="w-full max-w-xl space-y-6 rounded-2xl border border-ink-200 bg-white p-6 shadow-md">
-		<header>
-			<h1 class="text-2xl font-semibold text-ink-900">02 · Binding</h1>
-			<p class="text-sm text-ink-500">Sincronización bidireccional con <code>bind:</code></p>
-		</header>
-
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">bind:value · bind:checked · bind:this</h2>
+<SlideShell
+	number="02"
+	title="Binding"
+	description="Sincronización bidireccional entre el estado y el DOM con bind:."
+>
+	<div class="grid gap-5 lg:grid-cols-2">
+		<DemoCard
+			title="bind:value · bind:checked · bind:this"
+			description="Inputs de texto, checkbox y range, y una referencia al elemento."
+		>
 			<input
 				bind:this={nameInput}
 				bind:value={name}
@@ -59,10 +62,9 @@
 			<p class="text-sm text-ink-500">
 				Hola «{name || '...'}», {age} años, {accepted ? 'acepta' : 'no acepta'}.
 			</p>
-		</section>
+		</DemoCard>
 
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">bind:group</h2>
+		<DemoCard title="bind:group" description="Radios (un valor) y checkboxes (un array).">
 			<div class="flex gap-4 text-sm text-ink-500">
 				{#each ['S', 'M', 'L'] as const as s (s)}
 					<label><input type="radio" name="size" value={s} bind:group={size} /> {s}</label>
@@ -74,10 +76,9 @@
 				{/each}
 			</div>
 			<p class="text-sm text-ink-500">Talla {size}, extras: {extras.join(', ') || 'ninguno'}</p>
-		</section>
+		</DemoCard>
 
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">select y textarea</h2>
+		<DemoCard title="select y textarea">
 			<select bind:value={country} class="w-full rounded-lg border border-ink-200 px-3 py-2">
 				<option value="es">España</option>
 				<option value="fr">Francia</option>
@@ -87,26 +88,28 @@
 				bind:value={notes}
 				rows="2"
 				placeholder="Notas"
-				class="w-full rounded-lg border border-ink-200 px-3 py-2"
-			></textarea>
+				class="w-full rounded-lg border border-ink-200 px-3 py-2"></textarea>
 			<p class="text-sm text-ink-500">{country} · {notes.length} caracteres</p>
-		</section>
+		</DemoCard>
 
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">bind:clientWidth (solo lectura)</h2>
+		<DemoCard title="bind:clientWidth" description="Propiedades de solo lectura del elemento.">
 			<div bind:clientWidth={boxWidth} class="resize-x overflow-auto rounded-lg bg-ink-100 p-3">
 				<p class="text-sm text-ink-500">Redimensióname: {boxWidth}px</p>
 			</div>
-		</section>
+		</DemoCard>
 
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">bind: con componente hijo ($bindable)</h2>
+		<DemoCard
+			title="bind: con un componente hijo"
+			description="La prop del hijo se declara con $bindable."
+		>
 			<BindableCounter label="Unidades" bind:value={units} />
 			<p class="text-sm text-ink-500">El padre ve: {units}</p>
-		</section>
+		</DemoCard>
 
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">Function bindings (get, set)</h2>
+		<DemoCard
+			title="Function bindings"
+			description="bind:value con un par get/set transforma el valor al leerlo y al escribirlo."
+		>
 			<label class="flex items-center gap-2 text-sm text-ink-500">
 				°C <input
 					type="number"
@@ -121,9 +124,9 @@
 					class="w-24 rounded-lg border border-ink-200 px-2 py-1"
 				/>
 			</label>
-		</section>
+		</DemoCard>
 	</div>
-</main>
+</SlideShell>
 
 <!--
 

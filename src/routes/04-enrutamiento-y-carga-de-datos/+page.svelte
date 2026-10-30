@@ -37,7 +37,8 @@
 <div class="flex items-center gap-3 text-sm text-ink-500">
 	<span>Cargado a las {data.loadedAt}</span>
 	<button onclick={() => invalidate('app:products')} class="underline">Volver a cargar</button>
-	<button onclick={() => goto(`${base}/999`)} class="underline">Ir a un producto inexistente</button>
+	<button onclick={() => goto(`${base}/999`)} class="underline">Ir a un producto inexistente</button
+	>
 	<button onclick={() => goto(`${base}/abc`)} class="underline">Ir a /abc</button>
 </div>
 

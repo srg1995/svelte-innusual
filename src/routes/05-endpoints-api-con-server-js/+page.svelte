@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SlideShell from '#lib/components/SlideShell.svelte';
+	import DemoCard from '#lib/components/DemoCard.svelte';
 	import { invalidate } from '$app/navigation';
 	import type { PageProps } from './$types';
 	import { base } from './paths';
@@ -31,68 +33,91 @@
 	}
 </script>
 
-<main class="grid min-h-screen place-items-start justify-center bg-ink-50 p-8">
-	<div class="w-full max-w-xl space-y-5 rounded-2xl border border-ink-200 bg-white p-6 shadow-md">
-		<header>
-			<h1 class="text-2xl font-semibold text-ink-900">05 · Endpoints API con +server.js</h1>
-			<p class="text-sm text-ink-500">
-				Una función por verbo HTTP en <code>api/todos/+server.ts</code>
-			</p>
-		</header>
+<SlideShell
+	number="05"
+	title="Endpoints API con +server.js"
+	description="Una función por verbo HTTP en api/todos/+server.ts, consumida con fetch."
+>
+	<div class="grid gap-5 lg:grid-cols-2">
+		<DemoCard title="Tareas" description="Crear (POST), marcar (PATCH) y borrar (DELETE).">
+			<form onsubmit={add} class="flex gap-2">
+				<input
+					bind:value={text}
+					placeholder="Nueva tarea (vacía para provocar un 400)"
+					class="w-full rounded-lg border border-ink-200 px-3 py-2"
+				/>
+				<button class="rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white"
+					>POST</button
+				>
+			</form>
 
-		<form onsubmit={add} class="flex gap-2">
-			<input
-				bind:value={text}
-				placeholder="Nueva tarea (vacía para provocar un 400)"
-				class="w-full rounded-lg border border-ink-200 px-3 py-2"
-			/>
-			<button class="rounded-lg bg-brand-500 px-4 py-2 text-sm font-medium text-white">POST</button>
-		</form>
+			<ul class="space-y-2">
+				{#each data.todos as todo (todo.id)}
+					<li class="flex items-center gap-3 rounded-lg border border-ink-200 px-3 py-2">
+						<input
+							type="checkbox"
+							checked={todo.done}
+							onchange={(e) =>
+								call('PATCH', `/todos/${todo.id}`, { done: e.currentTarget.checked })}
+						/>
+						<span class="flex-1 text-ink-900 {todo.done ? 'line-through opacity-60' : ''}">
+							{todo.text}
+						</span>
+						<button
+							onclick={() => call('DELETE', `/todos/${todo.id}`)}
+							class="text-sm text-ink-500"
+						>
+							DELETE
+						</button>
+					</li>
+				{:else}
+					<li class="text-sm text-ink-500">No hay tareas.</li>
+				{/each}
+			</ul>
+		</DemoCard>
 
-		<ul class="space-y-2">
-			{#each data.todos as todo (todo.id)}
-				<li class="flex items-center gap-3 rounded-lg border border-ink-200 px-3 py-2">
-					<input
-						type="checkbox"
-						checked={todo.done}
-						onchange={(e) => call('PATCH', `/todos/${todo.id}`, { done: e.currentTarget.checked })}
-					/>
-					<span class="flex-1 text-ink-900 {todo.done ? 'line-through opacity-60' : ''}">
-						{todo.text}
-					</span>
-					<button onclick={() => call('DELETE', `/todos/${todo.id}`)} class="text-sm text-ink-500">
-						DELETE
-					</button>
-				</li>
-			{:else}
-				<li class="text-sm text-ink-500">No hay tareas.</li>
-			{/each}
-		</ul>
-
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">Probar casos concretos</h2>
+		<DemoCard
+			title="Probar casos concretos"
+			description="Cada botón lanza una petición y muestra la respuesta cruda."
+		>
 			<div class="flex flex-wrap gap-2 text-sm">
-				<button onclick={() => call('GET', '/todos?done=true')} class="rounded-lg border border-ink-200 px-3 py-1">
+				<button
+					onclick={() => call('GET', '/todos?done=true')}
+					class="rounded-lg border border-ink-200 px-3 py-1"
+				>
 					GET ?done=true
 				</button>
-				<button onclick={() => call('GET', '/todos/2')} class="rounded-lg border border-ink-200 px-3 py-1">
+				<button
+					onclick={() => call('GET', '/todos/2')}
+					class="rounded-lg border border-ink-200 px-3 py-1"
+				>
 					GET /todos/2
 				</button>
-				<button onclick={() => call('GET', '/todos/999')} class="rounded-lg border border-ink-200 px-3 py-1">
+				<button
+					onclick={() => call('GET', '/todos/999')}
+					class="rounded-lg border border-ink-200 px-3 py-1"
+				>
 					GET /todos/999 (404)
 				</button>
-				<button onclick={() => call('GET', '/todos/abc')} class="rounded-lg border border-ink-200 px-3 py-1">
+				<button
+					onclick={() => call('GET', '/todos/abc')}
+					class="rounded-lg border border-ink-200 px-3 py-1"
+				>
 					GET /todos/abc (matcher)
 				</button>
 			</div>
 
 			{#if last}
-				<pre class="overflow-auto rounded-lg bg-ink-100 p-3 text-xs text-ink-900"><b>{last.request}</b> → {last.status}
+				<pre class="overflow-auto rounded-lg bg-ink-100 p-3 text-xs text-ink-900"><b
+						>{last.request}</b
+					> → {last.status}
 {last.body}</pre>
+			{:else}
+				<p class="text-xs text-ink-500">Aún no has lanzado ninguna petición.</p>
 			{/if}
-		</section>
+		</DemoCard>
 	</div>
-</main>
+</SlideShell>
 
 <!--
 

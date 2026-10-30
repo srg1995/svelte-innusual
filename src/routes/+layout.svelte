@@ -11,19 +11,19 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<!-- Botón común a todas las diapositivas: se oculta en la propia home -->
+<!-- Barra común a todas las diapositivas: volver a la home y logotipo. La home lleva su propio banner -->
 {#if page.route.id !== '/'}
-	<a
-		href="/"
-		class="fixed top-4 left-4 z-10 rounded-full border border-ink-200 bg-white px-4 py-2 text-sm font-medium text-ink-900 shadow-sm hover:border-brand-500"
-	>
-		← Home
-	</a>
-{/if}
-
-<!-- Logotipo en las páginas interiores; la home ya lleva el banner de la empresa -->
-{#if page.route.id !== '/'}
-	<img src="/brand/logo.png" alt="innusual" class="fixed top-3 right-4 z-10 h-10 w-auto" />
+	<div class="sticky top-0 z-30 border-b border-ink-200 bg-white/85 backdrop-blur">
+		<div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-2">
+			<a
+				href="/"
+				class="rounded-full border border-ink-200 bg-white px-4 py-1.5 text-sm font-medium text-innusual-ink transition hover:border-innusual-purple hover:text-innusual-purple"
+			>
+				← Home
+			</a>
+			<img src="/brand/logo.png" alt="innusual" class="h-9 w-auto" />
+		</div>
+	</div>
 {/if}
 
 {@render children()}

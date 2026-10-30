@@ -142,8 +142,9 @@
 	<footer class="border-t border-ink-200">
 		<div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-6">
 			<img src="/brand/logo.png" alt="innusual" class="h-12 w-auto" />
-			<p class="text-sm text-ink-500">
-				© 2026 innusual. Ejemplos de la presentación de Svelte y SvelteKit.
+			<p class="text-right text-sm text-ink-500">
+				© 2026 innusual. Presentación de Svelte y SvelteKit.<br />
+				Desarrollado por Sergio Sacristán Santero.
 			</p>
 		</div>
 	</footer>

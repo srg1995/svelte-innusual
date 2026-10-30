@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SlideShell from '#lib/components/SlideShell.svelte';
+	import DemoCard from '#lib/components/DemoCard.svelte';
 	import { on } from 'svelte/events';
 	import ConfirmButton from '#lib/components/ConfirmButton.svelte';
 	import SearchBox from '#lib/components/SearchBox.svelte';
@@ -50,19 +52,21 @@
 	}}
 />
 
-<main class="grid min-h-screen place-items-center bg-ink-50 p-8">
-	<div class="w-full max-w-xl space-y-6 rounded-2xl border border-ink-200 bg-white p-6 shadow-md">
-		<header>
-			<h1 class="text-2xl font-semibold text-ink-900">03 · Eventos</h1>
-			<p class="text-sm text-ink-500">
-				En Svelte 5 los eventos son atributos: <code>onclick</code>, <code>onsubmit</code>…
-			</p>
-		</header>
-
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">Click: inline, shorthand y listener con on()</h2>
+<SlideShell
+	number="03"
+	title="Eventos"
+	description="En Svelte 5 los eventos son atributos: onclick, onsubmit… Prueba Ctrl + K para el atajo global."
+>
+	<div class="grid gap-5 lg:grid-cols-2">
+		<DemoCard
+			title="Click"
+			description="Inline, con shorthand (onclick sin valor) y con un listener on() que se limpia solo."
+		>
 			<div class="flex flex-wrap gap-2 text-sm">
-				<button onclick={() => add('Click inline')} class="rounded-lg border border-ink-200 px-3 py-1">
+				<button
+					onclick={() => add('Click inline')}
+					class="rounded-lg border border-ink-200 px-3 py-1"
+				>
 					Inline
 				</button>
 				<button {onclick} class="rounded-lg border border-ink-200 px-3 py-1">
@@ -72,10 +76,12 @@
 					on()
 				</button>
 			</div>
-		</section>
+		</DemoCard>
 
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">Formulario y teclado (preventDefault)</h2>
+		<DemoCard
+			title="Formulario y teclado"
+			description="preventDefault a mano: Svelte 5 ya no tiene modificadores."
+		>
 			<form onsubmit={handleSubmit} class="flex gap-2">
 				<input
 					bind:value={email}
@@ -95,10 +101,9 @@
 			>
 				Enlace que no navega
 			</a>
-		</section>
+		</DemoCard>
 
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">Propagación: stopPropagation y captura</h2>
+		<DemoCard title="Propagación" description="stopPropagation y fase de captura (onclickcapture).">
 			{#if modalOpen}
 				<div
 					onclick={() => (modalOpen = false)}
@@ -125,10 +130,9 @@
 					Reabrir
 				</button>
 			{/if}
-		</section>
+		</DemoCard>
 
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">Objeto del evento (mousemove)</h2>
+		<DemoCard title="Objeto del evento" description="mousemove entrega las coordenadas.">
 			<div
 				onmousemove={(e) => (mouse = { x: e.offsetX, y: e.offsetY })}
 				role="presentation"
@@ -136,26 +140,24 @@
 			>
 				x: {mouse.x} · y: {mouse.y}
 			</div>
-		</section>
+		</DemoCard>
 
-		<section class="space-y-2">
-			<h2 class="text-sm font-medium text-ink-900">Eventos de componente: callback props</h2>
+		<DemoCard title="Eventos de componente" description="Son callback props, con payload tipado.">
 			<SearchBox
 				placeholder="Buscar… (reenvía onfocus)"
 				onfocus={() => add('Foco reenviado al input interno')}
 				onsearch={(term) => add(`Búsqueda: «${term}»`)}
 			/>
 			<ConfirmButton label="Vaciar registro" onconfirm={() => (log = [])} />
-		</section>
+		</DemoCard>
 
-		<section>
-			<h2 class="mb-1 text-sm font-medium text-ink-900">Registro</h2>
+		<DemoCard title="Registro">
 			<ul class="text-xs text-ink-500">
-				{#each log as item (item.id)}<li>{item.msg}</li>{/each}
+				{#each log as item (item.id)}<li>{item.msg}</li>{:else}<li>Sin eventos todavía.</li>{/each}
 			</ul>
-		</section>
+		</DemoCard>
 	</div>
-</main>
+</SlideShell>
 
 <!--
 

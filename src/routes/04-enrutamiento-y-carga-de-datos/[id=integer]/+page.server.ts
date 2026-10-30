@@ -9,7 +9,8 @@ export const load: PageServerLoad = async ({ params, parent }) => {
 
 	// parent() devuelve los datos del layout (se ejecutan en paralelo con este load si no se espera antes)
 	const { categories } = await parent();
-	const categoryLabel = categories.find((c) => c.id === product.category)?.label ?? product.category;
+	const categoryLabel =
+		categories.find((c) => c.id === product.category)?.label ?? product.category;
 
 	return {
 		product,
