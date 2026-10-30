@@ -1,10 +1,10 @@
 <script lang="ts">
+	import DemoCard from '#lib/components/DemoCard.svelte';
 	let count = $state(0);
 </script>
 
-<section class="space-y-2 text-sm">
-	<h2 class="font-medium text-ink-900">csr = false</h2>
-	<button onclick={() => count++} class="rounded-lg border border-ink-200 px-3 py-1">
+<DemoCard title="csr = false" description="No se envía JavaScript: la página es HTML puro.">
+	<button onclick={() => count++} class="rounded-lg border border-ink-200 px-3 py-1 text-sm">
 		Contador: {count}
 	</button>
 	<p class="text-xs text-ink-500">
@@ -12,7 +12,11 @@
 		siguen funcionando como en una web tradicional.
 	</p>
 	<form method="GET" class="flex gap-2">
-		<input name="q" placeholder="Formulario sin JS" class="w-full rounded-lg border border-ink-200 px-3 py-2" />
-		<button class="rounded-lg border border-ink-200 px-3 py-1">Enviar</button>
+		<input
+			name="q"
+			placeholder="Formulario sin JS"
+			class="w-full rounded-lg border border-ink-200 px-3 py-2"
+		/>
+		<button class="rounded-lg border border-ink-200 px-3 py-1 text-sm">Enviar</button>
 	</form>
-</section>
+</DemoCard>

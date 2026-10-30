@@ -14,7 +14,13 @@ export const POST: RequestHandler = async ({ request }) => {
 	// El body llega sin validar: unknown obliga a comprobarlo antes de usarlo
 	const body: unknown = await request.json().catch(() => null);
 
-	if (typeof body !== 'object' || body === null || !('text' in body) || typeof body.text !== 'string' || !body.text.trim()) {
+	if (
+		typeof body !== 'object' ||
+		body === null ||
+		!('text' in body) ||
+		typeof body.text !== 'string' ||
+		!body.text.trim()
+	) {
 		error(400, 'El campo "text" es obligatorio');
 	}
 

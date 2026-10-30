@@ -1,27 +1,43 @@
 <script lang="ts">
+	import SlideShell from '#lib/components/SlideShell.svelte';
 	import type { LayoutProps } from './$types';
 	import { base } from './paths';
 
 	let { children }: LayoutProps = $props();
 </script>
 
-<main class="grid min-h-screen place-items-start justify-center bg-ink-50 p-8 pt-16">
-	<div class="w-full max-w-xl space-y-5 rounded-2xl border border-ink-200 bg-white p-6 shadow-md">
-		<header>
-			<h1 class="text-2xl font-semibold text-ink-900">09 · Page options</h1>
-			<p class="text-sm text-ink-500">
-				Se exportan desde <code>+page.ts</code>, <code>+page.server.ts</code> o los layouts
-			</p>
-		</header>
+<SlideShell
+	number="09"
+	title="Page options"
+	description="Se exportan desde +page.ts, +page.server.ts o los layouts, y se heredan por las rutas hijas."
+>
+	<nav class="mb-5 flex flex-wrap gap-2 text-sm">
+		<a
+			href={base}
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>Inicio</a
+		>
+		<a
+			href="{base}/prerender"
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>prerender</a
+		>
+		<a
+			href="{base}/sin-ssr"
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>ssr = false</a
+		>
+		<a
+			href="{base}/sin-csr"
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>csr = false</a
+		>
+		<a
+			href="{base}/slash/"
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>trailingSlash</a
+		>
+	</nav>
 
-		<nav class="flex flex-wrap gap-3 text-sm text-brand-600 underline">
-			<a href={base}>Inicio</a>
-			<a href="{base}/prerender">prerender</a>
-			<a href="{base}/sin-ssr">ssr = false</a>
-			<a href="{base}/sin-csr">csr = false</a>
-			<a href="{base}/slash/">trailingSlash</a>
-		</nav>
-
-		{@render children()}
-	</div>
-</main>
+	{@render children()}
+</SlideShell>
