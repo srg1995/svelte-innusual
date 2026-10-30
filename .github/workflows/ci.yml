@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Solo lectura: los checks no necesitan escribir nada en el repo
+permissions:
+  contents: read
+
+# Si se sube un commit nuevo a la misma PR, se cancela la ejecución anterior
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  types:
+    name: Tipos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      # svelte-check ejecuta el compilador de TypeScript sobre los .ts y los .svelte
+      - run: bun run check
+
+  tests:
+    name: Tests y cobertura
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      # Los tests de componentes corren en un navegador real
+      - run: bunx playwright install --with-deps chromium
+      # Falla si algún test falla o si la cobertura baja de los umbrales de vite.config.ts
+      - run: bun run test:coverage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: coverage
+          if-no-files-found: ignore

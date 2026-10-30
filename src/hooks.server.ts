@@ -1,35 +1,12 @@
-import { redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import type { Handle, HandleFetch, HandleServerError } from '@sveltejs/kit/hooks';
+import { session, timing } from '#lib/server/handles.js';
 
 // Los hooks son globales: afectan a TODAS las rutas de la aplicación, no solo a una diapositiva.
 
 // ── handle (07 y 08) ───────────────────────────────────────────────────────────────────────────
 // Es un middleware: se ejecuta en cada petición, antes de resolver la ruta y después de obtener la respuesta.
-
-// 1. Asigna un id a la petición y mide cuánto tarda en responderse
-const timing: Handle = async ({ event, resolve }) => {
-	event.locals.requestId = crypto.randomUUID().slice(0, 8);
-	const start = performance.now();
-
-	const response = await resolve(event);
-
-	response.headers.set('x-response-time', `${(performance.now() - start).toFixed(1)} ms`);
-	response.headers.set('x-request-id', event.locals.requestId);
-	return response;
-};
-
-// 2. Lee la sesión de la cookie, la deja en locals y protege una zona
-const session: Handle = async ({ event, resolve }) => {
-	const name = event.cookies.get('session');
-	event.locals.user = name ? { name } : undefined;
-
-	if (event.url.pathname.startsWith('/08-hooks/privado') && !event.locals.user) {
-		redirect(303, '/08-hooks?aviso=login');
-	}
-
-	return resolve(event);
-};
+// timing (id y tiempos) y session (cookie y zona privada) están en src/lib/server/handles.ts.
 
 // sequence encadena varios handle en orden
 export const handle: Handle = sequence(timing, session);
