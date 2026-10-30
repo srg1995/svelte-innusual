@@ -22,6 +22,27 @@ export default defineConfig({
 	],
 	test: {
 		expect: { requireAssertions: true },
+		coverage: {
+			provider: 'v8',
+			// Solo la lógica (estado, datos, endpoints, hooks, matchers). Los componentes y páginas son
+			// interfaz de ejemplo: se comprueban con svelte-check, no se miden aquí.
+			include: [
+				'src/lib/state/**/*.ts',
+				'src/lib/server/**/*.ts',
+				'src/params.ts',
+				'src/hooks.ts',
+				'src/hooks.server.ts',
+				'src/routes/**/+server.ts'
+			],
+			exclude: ['**/*.{test,spec}.*'],
+			reporter: ['text', 'html', 'lcov', 'json-summary'],
+			thresholds: {
+				statements: 90,
+				branches: 80,
+				functions: 90,
+				lines: 90
+			}
+		},
 		projects: [
 			{
 				extends: './vite.config.ts',
