@@ -1,0 +1,47 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@theme {
+	/* Paleta de innusual, sacada de su logotipo */
+	--color-innusual-purple: #5a3d9a;
+	--color-innusual-teal: #14b0b4;
+	--color-innusual-pink: #d9267f;
+	--color-innusual-orange: #f0831a;
+	--color-innusual-ink: #1f1f1d;
+	/* Acentos de la web innusual.tech */
+	--color-innusual-coral: #ff5629;
+	--color-innusual-rose: #ff64a3;
+
+	/* Naranja Svelte (#ff3e00 = brand-500) */
+	--color-brand-50: #fff3ed;
+	--color-brand-100: #ffe2d4;
+	--color-brand-200: #ffc2a8;
+	--color-brand-300: #ff9a70;
+	--color-brand-400: #ff6a38;
+	--color-brand-500: #ff3e00;
+	--color-brand-600: #e03600;
+	--color-brand-700: #b82c00;
+	--color-brand-800: #912500;
+	--color-brand-900: #761f00;
+	--color-brand-950: #410d00;
+
+	/* Grises azulados de Svelte (#676778 = ink-500, #40404f = ink-700) */
+	--color-ink-50: #f9f9fb;
+	--color-ink-100: #f0f0f4;
+	--color-ink-200: #e0e0e8;
+	--color-ink-300: #c6c6d2;
+	--color-ink-400: #9a9aab;
+	--color-ink-500: #676778;
+	--color-ink-600: #4f4f60;
+	--color-ink-700: #40404f;
+	--color-ink-800: #2f2f3a;
+	--color-ink-900: #1f1f28;
+	--color-ink-950: #14141a;
+}
+
+@layer base {
+	body {
+		@apply bg-ink-50 text-ink-700;
+	}
+}
