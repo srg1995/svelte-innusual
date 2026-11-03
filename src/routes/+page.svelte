@@ -1,4 +1,5 @@
 <script lang="ts">
+	import CardCarousel from '#lib/components/CardCarousel.svelte';
 	type Example = { href: string; number: string; title: string; description: string };
 	type Section = { title: string; description: string; examples: Example[] };
 
@@ -109,32 +110,30 @@
 					<p class="text-sm text-ink-500">{section.description}</p>
 				</div>
 
-				<ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{#each section.examples as example (example.href)}
-						<li>
-							<a
-								href={example.href}
-								class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-innusual-purple hover:shadow-lg"
+				<CardCarousel items={section.examples} label={section.title}>
+					{#snippet card(example)}
+						<a
+							href={example.href}
+							class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-innusual-purple hover:shadow-lg"
+						>
+							<span
+								class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-innusual-teal via-innusual-purple to-innusual-rose opacity-0 transition group-hover:opacity-100"
+							></span>
+							<span
+								class="mb-3 bg-gradient-to-br from-innusual-teal via-innusual-purple to-innusual-rose bg-clip-text text-4xl font-bold text-transparent"
 							>
-								<span
-									class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-innusual-teal via-innusual-purple to-innusual-rose opacity-0 transition group-hover:opacity-100"
-								></span>
-								<span
-									class="mb-3 bg-gradient-to-br from-innusual-teal via-innusual-purple to-innusual-rose bg-clip-text text-4xl font-bold text-transparent"
-								>
-									{example.number}
-								</span>
-								<span class="mb-1 text-lg leading-snug font-semibold">{example.title}</span>
-								<span class="text-sm text-ink-500">{example.description}</span>
-								<span
-									class="mt-auto pt-4 text-sm font-medium text-innusual-purple transition group-hover:translate-x-1"
-								>
-									Saber más +
-								</span>
-							</a>
-						</li>
-					{/each}
-				</ul>
+								{example.number}
+							</span>
+							<span class="mb-1 text-lg leading-snug font-semibold">{example.title}</span>
+							<span class="text-sm text-ink-500">{example.description}</span>
+							<span
+								class="mt-auto pt-4 text-sm font-medium text-innusual-purple transition group-hover:translate-x-1"
+							>
+								Saber más +
+							</span>
+						</a>
+					{/snippet}
+				</CardCarousel>
 			</section>
 		{/each}
 	</main>
