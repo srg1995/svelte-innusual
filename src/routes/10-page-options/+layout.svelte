@@ -3,15 +3,13 @@
 	import type { LayoutProps } from './$types';
 	import { base } from './paths';
 
-	let { data, children }: LayoutProps = $props();
+	let { children }: LayoutProps = $props();
 </script>
 
 <SlideShell
-	number="08"
-	title="Hooks"
-	description="Petición {data.requestId} · {data.user
-		? `sesión de ${data.user.name}`
-		: 'sin sesión'}"
+	number="10"
+	title="Page options"
+	description="Se exportan desde +page.ts, +page.server.ts o los layouts, y se heredan por las rutas hijas."
 >
 	<nav class="mb-5 flex flex-wrap gap-2 text-sm">
 		<a
@@ -20,14 +18,24 @@
 			>Inicio</a
 		>
 		<a
-			href="{base}/privado"
+			href="{base}/prerender"
 			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
-			>Zona privada</a
+			>prerender</a
 		>
 		<a
-			href="{base}/antiguo"
+			href="{base}/sin-ssr"
 			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
-			>URL antigua (reroute)</a
+			>ssr = false</a
+		>
+		<a
+			href="{base}/sin-csr"
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>csr = false</a
+		>
+		<a
+			href="{base}/slash/"
+			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			>trailingSlash</a
 		>
 	</nav>
 

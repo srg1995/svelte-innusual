@@ -34,7 +34,7 @@
 </script>
 
 <SlideShell
-	number="05"
+	number="06"
 	title="Endpoints API con +server.js"
 	description="Una función por verbo HTTP en api/todos/+server.ts, consumida con fetch."
 >

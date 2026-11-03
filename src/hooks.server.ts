@@ -4,14 +4,14 @@ import { session, timing } from '#lib/server/handles.js';
 
 // Los hooks son globales: afectan a TODAS las rutas de la aplicación, no solo a una diapositiva.
 
-// ── handle (07 y 08) ───────────────────────────────────────────────────────────────────────────
+// ── handle (08 y 09) ───────────────────────────────────────────────────────────────────────────
 // Es un middleware: se ejecuta en cada petición, antes de resolver la ruta y después de obtener la respuesta.
 // timing (id y tiempos) y session (cookie y zona privada) están en src/lib/server/handles.ts.
 
 // sequence encadena varios handle en orden
 export const handle: Handle = sequence(timing, session);
 
-// ── handleFetch (08) ───────────────────────────────────────────────────────────────────────────
+// ── handleFetch (09) ───────────────────────────────────────────────────────────────────────────
 // Intercepta el event.fetch de load y +server.ts (peticiones del servidor)
 export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	if (new URL(request.url).origin === event.url.origin) {
@@ -20,7 +20,7 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	return fetch(request);
 };
 
-// ── handleError (07) ───────────────────────────────────────────────────────────────────────────
+// ── handleError (08) ───────────────────────────────────────────────────────────────────────────
 // Recibe todos los errores, con `kind`: 'app' (error()), 'framework' (404 del router...),
 // 'validation' y 'unknown' (excepciones no controladas).
 export const handleError: HandleServerError = ({ kind, error, event }) => {

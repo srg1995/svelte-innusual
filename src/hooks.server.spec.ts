@@ -50,16 +50,16 @@ describe('session', () => {
 	});
 
 	it('redirige la zona privada si no hay sesión, sin resolver la ruta', async () => {
-		const { resolve, result } = run(session, '/08-hooks/privado');
+		const { resolve, result } = run(session, '/09-hooks/privado');
 		expect(await thrown(() => result)).toMatchObject({
 			status: 303,
-			location: '/08-hooks?aviso=login'
+			location: '/09-hooks?aviso=login'
 		});
 		expect(resolve).not.toHaveBeenCalled();
 	});
 
 	it('deja pasar la zona privada con sesión', async () => {
-		const { resolve, result } = run(session, '/08-hooks/privado', 'Ana');
+		const { resolve, result } = run(session, '/09-hooks/privado', 'Ana');
 		await result;
 		expect(resolve).toHaveBeenCalledOnce();
 	});

@@ -8,11 +8,11 @@ const post = (body: string, jar = cookies()) => ({
 	jar,
 	event: asEvent<Parameters<typeof POST>[0]>({
 		cookies: jar,
-		request: new Request('http://localhost/08-hooks/api/session', { method: 'POST', body })
+		request: new Request('http://localhost/09-hooks/api/session', { method: 'POST', body })
 	})
 });
 
-describe('POST /08-hooks/api/session', () => {
+describe('POST /09-hooks/api/session', () => {
 	it('guarda el nombre (sin espacios) en una cookie httpOnly', async () => {
 		const { jar, event } = post(JSON.stringify({ name: '  Ana ' }));
 		const res = await POST(event);
@@ -36,7 +36,7 @@ describe('POST /08-hooks/api/session', () => {
 	});
 });
 
-describe('DELETE /08-hooks/api/session', () => {
+describe('DELETE /09-hooks/api/session', () => {
 	it('borra la cookie y responde 204', async () => {
 		const jar = cookies();
 		const res = await DELETE(asEvent<Parameters<typeof DELETE>[0]>({ cookies: jar }));
