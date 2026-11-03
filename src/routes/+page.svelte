@@ -7,7 +7,7 @@
 	const sections: Section[] = [
 		{
 			title: 'Svelte',
-			description: 'El framework: reactividad, binding y eventos.',
+			description: 'El framework: reactividad, binding y transiciones.',
 			examples: [
 				{
 					href: '/01-reactividad-mediante-runes',
@@ -22,10 +22,10 @@
 					description: 'bind:value, bind:group, bind:this, $bindable y function bindings.'
 				},
 				{
-					href: '/03-eventos',
+					href: '/03-transiciones',
 					number: '03',
-					title: 'Eventos',
-					description: 'Handlers, preventDefault, propagación, callback props y on().'
+					title: 'Transiciones',
+					description: 'transition:, in:, out:, crossfade, animate:flip, Tween y Spring.'
 				}
 			]
 		},
