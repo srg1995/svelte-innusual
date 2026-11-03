@@ -86,14 +86,14 @@
 		<img
 			src="/brand/banner.jpg"
 			alt="innusual"
-			class="h-32 w-full object-cover object-[right_20%] sm:h-28"
+			class="h-48 w-full object-cover object-[right_20%] sm:h-40"
 		/>
 		<div
 			class="h-1 w-full bg-gradient-to-r from-innusual-coral via-innusual-rose via-40% to-innusual-purple"
 		></div>
 	</header>
 
-	<main class="mx-auto w-full max-w-5xl flex-1 px-6 py-5">
+	<main class="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-6 py-5">
 		<h1 class="mb-5 text-3xl font-bold tracking-tight">Svelte y SvelteKit</h1>
 
 		{#each sections as section (section.title)}
