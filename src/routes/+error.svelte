@@ -2,6 +2,12 @@
 	import { page } from '$app/state';
 
 	const notFound = $derived(page.status === 404);
+
+	function goBack(event: MouseEvent) {
+		if (history.length <= 1) return;
+		event.preventDefault();
+		history.back();
+	}
 </script>
 
 <svelte:head>
@@ -32,8 +38,8 @@
 
 	<p class="mt-3 max-w-md text-ink-500">
 		{#if notFound}
-			La diapositiva que buscas no está o ha cambiado de sitio. Vuelve a la home y elige un ejemplo
-			de Svelte o SvelteKit.
+			La diapositiva que buscas no está o ha cambiado de sitio. Vuelve a la página anterior o elige
+			un ejemplo desde la home.
 		{:else}
 			{page.error?.message ?? 'Ha ocurrido un error inesperado.'}
 		{/if}
@@ -45,9 +51,10 @@
 
 	<a
 		href="/"
+		onclick={goBack}
 		class="mt-8 rounded-full bg-innusual-purple px-6 py-2.5 text-sm font-medium text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
 	>
-		Volver a la home
+		Volver atrás
 	</a>
 
 	{#if page.error?.errorId}
