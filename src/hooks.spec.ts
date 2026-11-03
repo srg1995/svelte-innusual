@@ -7,11 +7,11 @@ const call = (path: string) =>
 
 describe('reroute', () => {
 	it('reescribe la URL antigua hacia la nueva', () => {
-		expect(call('/08-hooks/antiguo')).toBe('/08-hooks/nuevo');
+		expect(call('/09-hooks/antiguo')).toBe('/09-hooks/nuevo');
 	});
 
 	it('no toca el resto de rutas', () => {
-		expect(call('/08-hooks')).toBeUndefined();
+		expect(call('/09-hooks')).toBeUndefined();
 		expect(call('/')).toBeUndefined();
 	});
 });

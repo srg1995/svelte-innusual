@@ -113,7 +113,7 @@ afectan a todas las rutas de la aplicación, no solo a esta diapositiva.
      hay un punto único: se envuelve fetch a mano.
 
 3. handleError
-   - Gestiona los errores del servidor (ver la diapositiva 07).
+   - Gestiona los errores del servidor (ver la diapositiva 08).
 
 4. reroute
    - Hook universal (servidor y navegador) que decide qué ruta renderiza una URL sin cambiar la URL

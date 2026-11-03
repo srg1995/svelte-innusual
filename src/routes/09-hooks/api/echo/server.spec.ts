@@ -6,11 +6,11 @@ const call = (headers: Record<string, string>, locals: object) =>
 	GET(
 		asEvent<Parameters<typeof GET>[0]>({
 			locals,
-			request: new Request('http://localhost/08-hooks/api/echo', { headers })
+			request: new Request('http://localhost/09-hooks/api/echo', { headers })
 		})
 	);
 
-describe('GET /08-hooks/api/echo', () => {
+describe('GET /09-hooks/api/echo', () => {
 	it('devuelve lo que dejaron los hooks: locals y la cabecera de handleFetch', async () => {
 		const res = await call(
 			{ 'x-origin-request-id': 'padre123' },

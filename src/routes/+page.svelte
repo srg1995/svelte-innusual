@@ -31,7 +31,7 @@
 		},
 		{
 			title: 'SvelteKit',
-			description: 'El meta-framework: rutas, datos, API, hooks y renderizado.',
+			description: 'El meta-framework: rutas, datos, formularios, API, hooks y renderizado.',
 			examples: [
 				{
 					href: '/04-enrutamiento-y-carga-de-datos',
@@ -40,33 +40,39 @@
 					description: 'Rutas por carpetas, layouts, load, matchers, streaming y errores.'
 				},
 				{
-					href: '/05-endpoints-api-con-server-js',
+					href: '/05-formularios-y-form-actions',
 					number: '05',
+					title: 'Formularios y form actions',
+					description: 'actions, fail(), use:enhance, acciones con nombre y mejora progresiva.'
+				},
+				{
+					href: '/06-endpoints-api-con-server-js',
+					number: '06',
 					title: 'Endpoints API con +server.js',
 					description: 'Un handler por verbo HTTP, validación, params tipados y fetch interno.'
 				},
 				{
-					href: '/06-page-navigating-y-updated',
-					number: '06',
+					href: '/07-page-navigating-y-updated',
+					number: '07',
 					title: 'page, navigating y updated',
 					description: 'Estado reactivo del enrutador: URL, navegación en curso y nuevas versiones.'
 				},
 				{
-					href: '/07-errors-y-navigates',
-					number: '07',
+					href: '/08-errors-y-navigates',
+					number: '08',
 					title: 'Errors y navigates',
 					description: 'Errores esperados e inesperados, redirect, goto y ciclo de navegación.'
 				},
 				{
-					href: '/08-hooks',
-					number: '08',
+					href: '/09-hooks',
+					number: '09',
 					title: 'Hooks',
 					description:
 						'handle, handleFetch, handleError y reroute: lo transversal en un solo sitio.'
 				},
 				{
-					href: '/09-page-options',
-					number: '09',
+					href: '/10-page-options',
+					number: '10',
 					title: 'Page options',
 					description: 'prerender, ssr, csr y trailingSlash, ruta a ruta.'
 				}

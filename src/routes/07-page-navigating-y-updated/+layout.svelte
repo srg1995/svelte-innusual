@@ -44,7 +44,7 @@
 {/if}
 
 <SlideShell
-	number="06"
+	number="07"
 	title="page, navigating y updated"
 	description="Estado reactivo del enrutador, importado de $app/state."
 >

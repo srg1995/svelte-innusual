@@ -21,8 +21,8 @@ export const session: Handle = async ({ event, resolve }) => {
 	const name = event.cookies.get('session');
 	event.locals.user = name ? { name } : undefined;
 
-	if (event.url.pathname.startsWith('/08-hooks/privado') && !event.locals.user) {
-		redirect(303, '/08-hooks?aviso=login');
+	if (event.url.pathname.startsWith('/09-hooks/privado') && !event.locals.user) {
+		redirect(303, '/09-hooks?aviso=login');
 	}
 
 	return resolve(event);

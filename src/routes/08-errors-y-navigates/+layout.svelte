@@ -31,7 +31,7 @@
 </script>
 
 <SlideShell
-	number="07"
+	number="08"
 	title="Errors y navigates"
 	description="Gestión de errores y navegación programática."
 >
