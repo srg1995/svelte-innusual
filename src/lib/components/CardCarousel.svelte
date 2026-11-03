@@ -4,10 +4,13 @@
 	let {
 		items,
 		label,
+		header,
 		card
 	}: {
 		items: T[];
 		label: string;
+		// Cabecera opcional: se pinta a la izquierda y los controles a la derecha, en la misma fila
+		header?: Snippet;
 		card: Snippet<[T]>;
 	} = $props();
 
@@ -71,10 +74,53 @@
 	});
 
 	const arrow =
-		'grid h-10 w-10 place-items-center rounded-full border border-ink-200 bg-white text-lg text-innusual-ink shadow-sm transition hover:border-innusual-purple hover:text-innusual-purple disabled:cursor-default disabled:opacity-30 disabled:hover:border-ink-200 disabled:hover:text-innusual-ink';
+		'grid h-8 w-8 place-items-center rounded-full border border-ink-200 bg-white text-base text-innusual-ink shadow-sm transition hover:border-innusual-purple hover:text-innusual-purple disabled:cursor-default disabled:opacity-30 disabled:hover:border-ink-200 disabled:hover:text-innusual-ink';
 </script>
 
 <div role="region" aria-roledescription="carrusel" aria-label={label} class="relative">
+	<!-- Cabecera a la izquierda y controles a la derecha, en una sola fila -->
+	<div class="mb-3 flex min-h-8 items-center justify-between gap-4 border-b border-ink-200 pb-2">
+		<div class="flex flex-wrap items-baseline gap-x-3">{@render header?.()}</div>
+
+		{#if canPrev || canNext}
+			<div class="flex shrink-0 items-center gap-4">
+				<div class="hidden gap-1.5 sm:flex">
+					{#each Array.from({ length: items.length }, (_, i) => i) as i (i)}
+						<button
+							type="button"
+							aria-label="Ir a la diapositiva {i + 1}"
+							aria-current={i === active}
+							onclick={() => goTo(i)}
+							class="h-2 rounded-full transition-all {i === active
+								? 'w-6 bg-innusual-purple'
+								: 'w-2 bg-ink-200 hover:bg-ink-400'}"
+						></button>
+					{/each}
+				</div>
+				<div class="flex gap-2">
+					<button
+						type="button"
+						aria-label="Anterior"
+						disabled={!canPrev}
+						onclick={() => scrollPage(-1)}
+						class={arrow}
+					>
+						←
+					</button>
+					<button
+						type="button"
+						aria-label="Siguiente"
+						disabled={!canNext}
+						onclick={() => scrollPage(1)}
+						class={arrow}
+					>
+						→
+					</button>
+				</div>
+			</div>
+		{/if}
+	</div>
+
 	<!-- La pista se puede desplazar con rueda, gesto táctil, flechas del teclado o los botones -->
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions -->
 	<ul
@@ -95,42 +141,4 @@
 			</li>
 		{/each}
 	</ul>
-
-	{#if canPrev || canNext}
-		<div class="mt-4 flex items-center justify-between">
-			<div class="flex gap-1.5">
-				{#each Array.from({ length: items.length }, (_, i) => i) as i (i)}
-					<button
-						type="button"
-						aria-label="Ir a la diapositiva {i + 1}"
-						aria-current={i === active}
-						onclick={() => goTo(i)}
-						class="h-2 rounded-full transition-all {i === active
-							? 'w-6 bg-innusual-purple'
-							: 'w-2 bg-ink-200 hover:bg-ink-400'}"
-					></button>
-				{/each}
-			</div>
-			<div class="flex gap-2">
-				<button
-					type="button"
-					aria-label="Anterior"
-					disabled={!canPrev}
-					onclick={() => scrollPage(-1)}
-					class={arrow}
-				>
-					←
-				</button>
-				<button
-					type="button"
-					aria-label="Siguiente"
-					disabled={!canNext}
-					onclick={() => scrollPage(1)}
-					class={arrow}
-				>
-					→
-				</button>
-			</div>
-		</div>
-	{/if}
 </div>

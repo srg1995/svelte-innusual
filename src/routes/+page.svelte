@@ -79,55 +79,51 @@
 	<title>innusual · Svelte y SvelteKit</title>
 </svelte:head>
 
-<div class="min-h-screen bg-white text-innusual-ink">
-	<!-- La imagen ya incluye el logotipo; en pantallas estrechas se recorta por la izquierda -->
-	<header class="relative">
+<!-- Una sola pantalla: la página ocupa el alto del navegador y el pie queda abajo -->
+<div class="flex min-h-dvh flex-col bg-white text-innusual-ink">
+	<!-- La imagen ya incluye el logotipo; se recorta en alto y, en pantallas estrechas, por la izquierda -->
+	<header>
 		<img
 			src="/brand/banner.jpg"
 			alt="innusual"
-			class="h-36 w-full object-cover object-right sm:h-auto"
+			class="h-32 w-full object-cover object-[right_20%] sm:h-28"
 		/>
 		<div
-			class="h-1.5 w-full bg-gradient-to-r from-innusual-coral via-innusual-rose via-40% to-innusual-purple"
+			class="h-1 w-full bg-gradient-to-r from-innusual-coral via-innusual-rose via-40% to-innusual-purple"
 		></div>
 	</header>
 
-	<main class="mx-auto max-w-5xl px-6 py-12">
-		<div class="mb-12 max-w-2xl">
-			<p class="mb-2 font-mono text-sm font-semibold tracking-wide text-innusual-coral">
-				&gt;&gt; Presentación técnica
-			</p>
-			<h1 class="mb-3 text-4xl font-bold tracking-tight sm:text-5xl">Svelte y SvelteKit</h1>
-			<p class="text-lg text-ink-500">Guía práctica y rápida con ejemplos de Svelte y SvelteKit</p>
-		</div>
+	<main class="mx-auto w-full max-w-5xl flex-1 px-6 py-5">
+		<h1 class="mb-5 text-3xl font-bold tracking-tight">Svelte y SvelteKit</h1>
 
 		{#each sections as section (section.title)}
-			<section class="mb-12">
-				<div class="mb-5 flex items-baseline gap-3 border-b border-ink-200 pb-3">
-					<h2 class="text-2xl font-semibold">
-						<span class="font-mono text-innusual-coral">&gt;</span>{section.title}
-					</h2>
-					<p class="text-sm text-ink-500">{section.description}</p>
-				</div>
-
+			<section class="mb-5">
 				<CardCarousel items={section.examples} label={section.title}>
+					{#snippet header()}
+						<h2 class="text-xl font-semibold">
+							<span class="font-mono text-innusual-coral">&gt;</span>{section.title}
+						</h2>
+						<p class="text-sm text-ink-500">{section.description}</p>
+					{/snippet}
 					{#snippet card(example)}
 						<a
 							href={example.href}
-							class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-innusual-purple hover:shadow-lg"
+							class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white p-4 transition duration-300 hover:-translate-y-1 hover:border-innusual-purple hover:shadow-lg"
 						>
 							<span
 								class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-innusual-teal via-innusual-purple to-innusual-rose opacity-0 transition group-hover:opacity-100"
 							></span>
-							<span
-								class="mb-3 bg-gradient-to-br from-innusual-teal via-innusual-purple to-innusual-rose bg-clip-text text-4xl font-bold text-transparent"
-							>
-								{example.number}
+							<span class="mb-1 flex items-baseline gap-3">
+								<span
+									class="bg-gradient-to-br from-innusual-teal via-innusual-purple to-innusual-rose bg-clip-text text-3xl leading-none font-bold text-transparent"
+								>
+									{example.number}
+								</span>
+								<span class="text-base leading-snug font-semibold">{example.title}</span>
 							</span>
-							<span class="mb-1 text-lg leading-snug font-semibold">{example.title}</span>
 							<span class="text-sm text-ink-500">{example.description}</span>
 							<span
-								class="mt-auto pt-4 text-sm font-medium text-innusual-purple transition group-hover:translate-x-1"
+								class="mt-auto pt-2 text-sm font-medium text-innusual-purple transition group-hover:translate-x-1"
 							>
 								Saber más +
 							</span>
@@ -139,9 +135,9 @@
 	</main>
 
 	<footer class="border-t border-ink-200">
-		<div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-6">
-			<img src="/brand/logo.png" alt="innusual" class="h-12 w-auto" />
-			<p class="text-right text-sm text-ink-500">
+		<div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
+			<img src="/brand/logo.png" alt="innusual" class="h-9 w-auto" />
+			<p class="text-right text-xs text-ink-500">
 				© 2026 innusual. Presentación de Svelte y SvelteKit.<br />
 				Desarrollado por Sergio Sacristán Santero.
 			</p>
