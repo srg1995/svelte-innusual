@@ -6,6 +6,8 @@
 	import CartBadge from '#lib/components/CartBadge.svelte';
 	import CurrencyProvider from '#lib/components/CurrencyProvider.svelte';
 	import PriceTag from '#lib/components/PriceTag.svelte';
+	import ThemeProvider from '#lib/components/ThemeProvider.svelte';
+	import ThemedBadge from '#lib/components/ThemedBadge.svelte';
 	import { cart } from '#lib/state/cart.svelte.js';
 
 	type Item = { id: number; name: string; price: number; qty: number };
@@ -139,6 +141,20 @@
 				</CurrencyProvider>
 			</div>
 		</DemoCard>
+
+		<DemoCard
+			wide
+			title="Context anidado"
+			description="Un segundo contexto, el tema. Si dentro de un proveedor hay otro, cada componente lee el del ancestro más cercano."
+		>
+			<ThemeProvider label="Tema exterior" initial="claro">
+				<ThemedBadge />
+				<ThemeProvider label="Tema interior" initial="oscuro">
+					<ThemedBadge />
+				</ThemeProvider>
+				<ThemedBadge />
+			</ThemeProvider>
+		</DemoCard>
 	</div>
 </SlideShell>
 
@@ -172,6 +188,14 @@ Resumen: Svelte frente a React y Vue
      comprobarlo.
    - Svelte: createContext devuelve el par [get, set] ya tipado. No necesita claves, ni valor inicial
      nulo, ni comprobaciones, ni memoización, y lanza un error claro si falta el proveedor.
+
+4. Contextos anidados
+   - React: dos Providers anidados del mismo contexto: useContext devuelve el más cercano. Funciona
+     igual, pero cada contexto necesita su Provider, su valor inicial y su hook.
+   - Vue: provide en un componente intermedio sobrescribe el valor para su subárbol; inject lo
+     resuelve hacia arriba, con las mismas comprobaciones de undefined.
+   - Svelte: el mismo createContext sirve para anidar: getTheme() devuelve el Theme del ancestro más
+     cercano y el estado de cada nivel es una instancia con $state, sin más piezas.
 
 Conclusión: las runes unifican en una sola idea (variables que reaccionan) lo que en React se reparte
 entre varios hooks con reglas propias, y lo que en Vue se reparte entre ref, reactive y computed.
