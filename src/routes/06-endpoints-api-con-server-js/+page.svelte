@@ -136,7 +136,7 @@ Archivos de esta sección: api/todos/+server.ts, api/todos/[id=integer]/+server.
 
 2. Petición y respuesta
    - Los handlers reciben un RequestEvent con request, url, params, cookies, locals y fetch, y
-     devuelven una Response estándar de la web. json() es solo un atajo para crearla.
+     devuelven una Response estándar de la web. Response.json() crea una con el cuerpo en JSON.
    - Express usa sus propios objetos req y res; Nuxt, un event con helpers (readBody, getQuery).
      En SvelteKit se usan las APIs del estándar (request.json(), url.searchParams).
 
