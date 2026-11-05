@@ -216,8 +216,8 @@
 			</button>
 			{#key drawRun}
 				<svg
-					viewBox="0 0 200 60"
-					class="h-16 w-full"
+					viewBox="0 0 200 90"
+					class="h-20 w-full"
 					fill="none"
 					stroke-width="4"
 					stroke-linecap="round"
