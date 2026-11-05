@@ -114,9 +114,10 @@
 				description="Las runes funcionan en archivos .svelte.ts: el estado se exporta e importa desde cualquier componente, sin Provider ni props."
 			>
 				<div class="flex items-center justify-between">
-					<div class="flex gap-2">
-						<AddToCartButton name="Camiseta" price={15} />
-						<AddToCartButton name="Gorra" price={10} />
+					<div class="flex flex-wrap gap-2">
+						{#each items as item (item.id)}
+							<AddToCartButton name={item.name} price={item.price} />
+						{/each}
 					</div>
 					<CartBadge />
 				</div>
@@ -136,7 +137,7 @@
 				<CurrencyProvider label="Tienda A">
 					<PriceTag amount={cart.total} />
 				</CurrencyProvider>
-				<CurrencyProvider label="Tienda B">
+				<CurrencyProvider label="Tienda B" currency="USD">
 					<PriceTag amount={cart.total} />
 				</CurrencyProvider>
 			</div>
