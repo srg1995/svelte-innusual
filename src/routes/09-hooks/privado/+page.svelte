@@ -5,7 +5,7 @@
 	let { data }: PageProps = $props();
 </script>
 
-<!-- Si no hay sesión, handle redirige antes de que esta página se cargue -->
+<!-- Sin sesión, handle redirige y, si no, lo hace el load de +page.server.ts: aquí user siempre existe -->
 <DemoCard title="Zona privada" description="Solo se llega con sesión: lo comprueba handle.">
-	<p class="text-sm text-ink-900">Bienvenido, {data.user?.name}.</p>
+	<p class="text-sm text-ink-900">Bienvenido, {data.user.name}.</p>
 </DemoCard>
