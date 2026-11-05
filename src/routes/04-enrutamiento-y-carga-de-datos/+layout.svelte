@@ -18,13 +18,13 @@
 		<nav class="mb-5 flex flex-wrap gap-2 text-sm">
 			<a
 				href={base}
-				class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+				class="rounded-full border border-ink-200 bg-surface px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
 				>Todos</a
 			>
 			{#each data.categories as category (category.id)}
 				<a
 					href="{base}?category={category.id}"
-					class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+					class="rounded-full border border-ink-200 bg-surface px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
 					>{category.label}</a
 				>
 			{/each}

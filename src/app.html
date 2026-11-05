@@ -4,6 +4,14 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
+		<!-- Aplica el tema guardado (o el del sistema) antes de pintar, para que no parpadee -->
+		<script>
+			try {
+				var t = localStorage.getItem('innusual-theme');
+				if (!t && matchMedia('(prefers-color-scheme: dark)').matches) t = 'oscuro';
+				document.documentElement.dataset.theme = t === 'oscuro' ? 'dark' : 'light';
+			} catch (e) {}
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
