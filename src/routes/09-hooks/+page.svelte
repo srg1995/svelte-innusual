@@ -1,6 +1,6 @@
 <script lang="ts">
 	import DemoCard from '#lib/components/DemoCard.svelte';
-	import { invalidateAll } from '$app/navigation';
+	import { refreshAll } from '$app/navigation';
 	import { page } from '$app/state';
 	import type { PageProps } from './$types';
 	import { base } from './paths';
@@ -18,12 +18,12 @@
 			body: JSON.stringify({ name })
 		});
 		name = '';
-		await invalidateAll(); // vuelve a ejecutar los load: handle leerá la cookie nueva
+		await refreshAll(); // vuelve a ejecutar los load: handle leerá la cookie nueva
 	}
 
 	async function logout() {
 		await fetch(`${base}/api/session`, { method: 'DELETE' });
-		await invalidateAll();
+		await refreshAll();
 	}
 
 	// Las cabeceras x-response-time y x-request-id las añade el handle `timing`

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import DemoCard from '#lib/components/DemoCard.svelte';
-	import { beforeNavigate, goto, invalidateAll, preloadData } from '$app/navigation';
+	import { beforeNavigate, goto, preloadData, refreshAll } from '$app/navigation';
 	import { base } from './paths';
 
 	let draft = $state('');
@@ -72,8 +72,8 @@
 			<button onclick={preload} class="rounded-lg border border-ink-200 px-3 py-1"
 				>preloadData</button
 			>
-			<button onclick={() => invalidateAll()} class="rounded-lg border border-ink-200 px-3 py-1">
-				invalidateAll
+			<button onclick={() => refreshAll()} class="rounded-lg border border-ink-200 px-3 py-1">
+				refreshAll
 			</button>
 		</div>
 		{#if preloaded}<p class="text-xs text-ink-500">{preloaded}</p>{/if}
@@ -117,7 +117,7 @@ Archivos: +error.svelte, esperado/, inesperado/, redirigir/ (cada uno con su +pa
      equivalentes (redirect, navigateTo); en SvelteKit es la misma función en servidor y cliente.
 
 3. Navegación programática ($app/navigation)
-   - goto con opciones (replaceState, noScroll, keepFocus, invalidateAll), invalidateAll para repetir
+   - goto con opciones (replaceState, noScroll, keepFocus, invalidateAll), refreshAll para repetir
      los load y preloadData para descargar código y datos de una ruta sin navegar a ella.
    - Next.js: useRouter con push, replace y prefetch; solo funciona dentro de componentes de cliente.
      Nuxt: navigateTo y router.push. En SvelteKit son funciones importables desde cualquier sitio.
