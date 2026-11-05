@@ -1,4 +1,4 @@
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { createTodo, listTodos } from '#lib/server/todos.js';
 
@@ -7,7 +7,7 @@ import { createTodo, listTodos } from '#lib/server/todos.js';
 export const GET: RequestHandler = ({ url }) => {
 	// GET /api/todos?done=true
 	const done = url.searchParams.get('done');
-	return json(listTodos(done === null ? undefined : done === 'true'));
+	return Response.json(listTodos(done === null ? undefined : done === 'true'));
 };
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -24,5 +24,5 @@ export const POST: RequestHandler = async ({ request }) => {
 		error(400, 'El campo "text" es obligatorio');
 	}
 
-	return json(createTodo(body.text.trim()), { status: 201 });
+	return Response.json(createTodo(body.text.trim()), { status: 201 });
 };
