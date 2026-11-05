@@ -10,7 +10,7 @@
 </script>
 
 <section
-	class="min-w-0 rounded-2xl border border-ink-200 bg-white p-5 shadow-sm {wide
+	class="min-w-0 rounded-2xl border border-ink-200 bg-surface p-5 shadow-sm {wide
 		? 'lg:col-span-2'
 		: ''}"
 >

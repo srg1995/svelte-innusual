@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CardCarousel from '#lib/components/CardCarousel.svelte';
+	import ThemeToggle from '#lib/components/ThemeToggle.svelte';
 	type Example = { href: string; number: string; title: string; description: string };
 	type Section = { title: string; description: string; examples: Example[] };
 
@@ -86,7 +87,7 @@
 </svelte:head>
 
 <!-- Una sola pantalla: la página ocupa el alto del navegador y el pie queda abajo -->
-<div class="flex min-h-dvh flex-col bg-white text-innusual-ink">
+<div class="flex min-h-dvh flex-col bg-ink-50 text-innusual-ink">
 	<!-- La imagen ya incluye el logotipo; se recorta en alto y, en pantallas estrechas, por la izquierda -->
 	<header>
 		<img
@@ -100,7 +101,11 @@
 	</header>
 
 	<main class="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-6 py-5">
-		<h1 class="mb-5 text-3xl font-bold tracking-tight">Svelte y SvelteKit</h1>
+		<!-- El botón de tema va a la altura del título (en las demás páginas está en la barra superior) -->
+		<div class="mb-5 flex items-center justify-between gap-4">
+			<h1 class="text-3xl font-bold tracking-tight">Svelte y SvelteKit</h1>
+			<ThemeToggle />
+		</div>
 
 		{#each sections as section (section.title)}
 			<section class="mb-5">
@@ -114,7 +119,7 @@
 					{#snippet card(example)}
 						<a
 							href={example.href}
-							class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-white p-4 transition duration-300 hover:-translate-y-1 hover:border-innusual-purple hover:shadow-lg"
+							class="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink-200 bg-surface p-4 transition duration-300 hover:-translate-y-1 hover:border-innusual-purple hover:shadow-lg"
 						>
 							<span
 								class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-innusual-teal via-innusual-purple to-innusual-rose opacity-0 transition group-hover:opacity-100"
@@ -142,7 +147,7 @@
 
 	<footer class="border-t border-ink-200">
 		<div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
-			<img src="/brand/logo.png" alt="innusual" class="h-9 w-auto" />
+			<img src="/brand/logo.png" alt="innusual" class="brand-logo h-9 w-auto" />
 			<p class="text-right text-xs text-ink-500">
 				© 2026 innusual. Presentación de Svelte y SvelteKit.<br />
 				Desarrollado por Sergio Sacristán Santero.

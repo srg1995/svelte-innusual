@@ -56,22 +56,22 @@
 			<nav class="flex flex-wrap gap-2 text-sm">
 				<a
 					href={base}
-					class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+					class="rounded-full border border-ink-200 bg-surface px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
 					>Inicio</a
 				>
 				<a
 					href="{base}/42?color=rojo#detalle"
-					class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+					class="rounded-full border border-ink-200 bg-surface px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
 					>Con parámetro y query</a
 				>
 				<a
 					href="{base}/lenta"
-					class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+					class="rounded-full border border-ink-200 bg-surface px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
 					>Carga lenta (1,5 s)</a
 				>
 				<a
 					href="{base}/error"
-					class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+					class="rounded-full border border-ink-200 bg-surface px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
 					>Lanza un error</a
 				>
 			</nav>
