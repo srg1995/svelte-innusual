@@ -1,4 +1,4 @@
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { deleteTodo, getTodo, updateTodo } from '#lib/server/todos.js';
 
@@ -6,7 +6,7 @@ export const GET: RequestHandler = ({ params }) => {
 	// Gracias al matcher integer, params.id ya es un number
 	const todo = getTodo(params.id);
 	if (!todo) error(404, `La tarea ${params.id} no existe`);
-	return json(todo);
+	return Response.json(todo);
 };
 
 export const PATCH: RequestHandler = async ({ params, request }) => {
@@ -19,7 +19,7 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
 
 	const todo = updateTodo(params.id, changes);
 	if (!todo) error(404, `La tarea ${params.id} no existe`);
-	return json(todo);
+	return Response.json(todo);
 };
 
 export const DELETE: RequestHandler = ({ params }) => {

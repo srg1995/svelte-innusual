@@ -1,4 +1,4 @@
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
@@ -19,7 +19,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		sameSite: 'lax',
 		maxAge: 3600
 	});
-	return json({ ok: true });
+	return Response.json({ ok: true });
 };
 
 export const DELETE: RequestHandler = ({ cookies }) => {
