@@ -18,10 +18,15 @@
 <div class="rounded-lg border border-ink-200 p-3">
 	<label class="mb-2 flex items-center gap-2 text-sm text-ink-500">
 		{label}
-		<select bind:value={settings.currency} class="rounded-lg border border-ink-200 px-2 py-1">
-			<option value="EUR">EUR</option>
-			<option value="USD">USD</option>
-		</select>
+		<span class="relative">
+			<select
+				bind:value={settings.currency}
+				class="appearance-none rounded-lg border border-ink-200 py-1 pr-8 pl-2"
+			>
+				<option value="EUR">EUR</option>
+				<option value="USD">USD</option>
+			</select>
+		</span>
 	</label>
 	{@render children()}
 </div>
