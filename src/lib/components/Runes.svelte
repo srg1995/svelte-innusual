@@ -7,7 +7,7 @@
 	$effect(() => console.log(`Total: ${total} €`));
 </script>
 
-<div class="w-full max-w-md rounded-2xl border border-ink-200 bg-white p-6 shadow-md">
+<div class="w-full max-w-md rounded-2xl border border-ink-200 bg-surface p-6 shadow-md">
 	<h2 class="mb-3 text-2xl font-semibold text-ink-900">{name} · {price} €</h2>
 	<input
 		type="number"

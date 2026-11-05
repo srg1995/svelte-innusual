@@ -4,8 +4,8 @@ export type ThemeName = 'claro' | 'oscuro' | 'innusual';
 
 // Las clases completas viven aquí (no se construyen por trozos) para que Tailwind las detecte
 export const themeClasses: Record<ThemeName, string> = {
-	claro: 'border-ink-200 bg-white text-innusual-ink',
-	oscuro: 'border-ink-500 bg-innusual-ink text-white',
+	claro: 'border-[#e0e0e8] bg-[#ffffff] text-[#1f1f1d]',
+	oscuro: 'border-[#676778] bg-[#1f1f1d] text-[#ffffff]',
 	innusual:
 		'border-transparent bg-gradient-to-br from-innusual-teal via-innusual-purple to-innusual-rose text-white'
 };
@@ -16,6 +16,11 @@ export class Theme {
 
 	constructor(name: ThemeName = 'claro') {
 		this.name = name;
+	}
+
+	// Alterna entre claro y oscuro (el tema «innusual» solo se elige desde un selector)
+	toggle() {
+		this.name = this.name === 'oscuro' ? 'claro' : 'oscuro';
 	}
 }
 

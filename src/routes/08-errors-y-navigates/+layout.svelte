@@ -38,12 +38,12 @@
 	<nav class="mb-5 flex flex-wrap gap-2 text-sm">
 		<a
 			href={base}
-			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			class="rounded-full border border-ink-200 bg-surface px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
 			>Inicio</a
 		>
 		<a
 			href="{base}/destino"
-			class="rounded-full border border-ink-200 bg-white px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
+			class="rounded-full border border-ink-200 bg-surface px-3 py-1 text-brand-600 transition hover:border-innusual-purple"
 			>Destino</a
 		>
 	</nav>

@@ -74,7 +74,7 @@
 	});
 
 	const arrow =
-		'grid h-8 w-8 place-items-center rounded-full border border-ink-200 bg-white text-base text-innusual-ink shadow-sm transition hover:border-innusual-purple hover:text-innusual-purple disabled:cursor-default disabled:opacity-30 disabled:hover:border-ink-200 disabled:hover:text-innusual-ink';
+		'grid h-8 w-8 place-items-center rounded-full border border-ink-200 bg-surface text-base text-innusual-ink shadow-sm transition hover:border-innusual-purple hover:text-innusual-purple disabled:cursor-default disabled:opacity-30 disabled:hover:border-ink-200 disabled:hover:text-innusual-ink';
 </script>
 
 <div role="region" aria-roledescription="carrusel" aria-label={label} class="relative">
