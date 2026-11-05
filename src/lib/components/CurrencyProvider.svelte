@@ -1,11 +1,17 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-	import { Settings, setSettings } from '#lib/state/settings.svelte.js';
+	import { untrack, type Snippet } from 'svelte';
+	import { Settings, setSettings, type Currency } from '#lib/state/settings.svelte.js';
 
-	let { label, children }: { label: string; children: Snippet } = $props();
+	let {
+		label,
+		currency = 'EUR',
+		children
+	}: { label: string; currency?: Currency; children: Snippet } = $props();
 
 	// Instancia propia de este subárbol, publicada con context
 	const settings = new Settings();
+	// Solo valor inicial: después manda el <select>
+	settings.currency = untrack(() => currency);
 	setSettings(settings);
 </script>
 
