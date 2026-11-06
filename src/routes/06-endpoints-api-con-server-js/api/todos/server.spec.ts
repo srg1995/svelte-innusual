@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { asEvent, thrown } from '../../../../test/helpers';
+import { asEvent, thrown } from '#test/helpers.js';
 import { GET, POST } from './+server';
 
 const post = (body: string) =>

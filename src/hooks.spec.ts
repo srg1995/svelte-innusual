@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { asEvent } from './test/helpers';
+import { asEvent } from '#test/helpers.js';
 import { reroute } from './hooks';
 
 const call = (path: string) =>

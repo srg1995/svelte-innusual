@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { asEvent, thrown } from './test/helpers';
+import { asEvent, thrown } from '#test/helpers.js';
 import { handle, handleError, handleFetch } from './hooks.server';
 import { session, timing } from '#lib/server/handles.js';
 

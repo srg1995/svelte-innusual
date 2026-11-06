@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { asEvent, thrown } from '../../../../test/helpers';
+import { asEvent, thrown } from '#test/helpers.js';
 import { DELETE, POST } from './+server';
 
 const cookies = () => ({ set: vi.fn(), delete: vi.fn() });
