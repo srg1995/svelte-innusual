@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import type { PageProps } from './$types';
-	import { base } from '../paths';
+	import { base } from '#routes/04-enrutamiento-y-carga-de-datos/paths.js';
 
 	let { data }: PageProps = $props();
 </script>
