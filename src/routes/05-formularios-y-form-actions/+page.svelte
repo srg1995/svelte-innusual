@@ -2,6 +2,7 @@
 	import SlideShell from '#lib/components/SlideShell.svelte';
 	import DemoCard from '#lib/components/DemoCard.svelte';
 	import { enhance, type SubmitFunction } from '$app/forms';
+	import { SvelteSet } from 'svelte/reactivity';
 	import type { PageProps } from './$types';
 
 	let { data, form }: PageProps = $props();
@@ -41,12 +42,21 @@
 		};
 	};
 
+	// Filas con una petición en curso: evita que los clics rápidos lancen envíos solapados
+	// (cada respuesta vuelve a ejecutar load y los contadores parpadean o se pisan)
+	const pendingRows = new SvelteSet<string>();
+
 	// Sin reset: el campo del formulario no se toca al actualizar la lista
-	const onRow: SubmitFunction = ({ action }) => {
+	const onRow: SubmitFunction = ({ action, formData, cancel }) => {
+		const id = String(formData.get('id'));
+		if (pendingRows.has(id)) return cancel();
+		pendingRows.add(id);
+
 		const name = action.search.replace('?/', '');
 		return async ({ result, update }) => {
 			add(`${name}: respuesta «${result.type}»`);
 			await update({ reset: false });
+			pendingRows.delete(id);
 		};
 	};
 
@@ -151,8 +161,16 @@
 							<input type="hidden" name="id" value={message.id} />
 							<span>{message.text}</span>
 							<span class="flex shrink-0 gap-2">
-								<button formaction="?/like" class={ghost}>♥ {message.likes}</button>
-								<button formaction="?/remove" class={ghost}>Borrar</button>
+								<button
+									formaction="?/like"
+									disabled={pendingRows.has(String(message.id))}
+									class="{ghost} disabled:opacity-50">♥ {message.likes}</button
+								>
+								<button
+									formaction="?/remove"
+									disabled={pendingRows.has(String(message.id))}
+									class="{ghost} disabled:opacity-50">Borrar</button
+								>
 							</span>
 						</form>
 					</li>
