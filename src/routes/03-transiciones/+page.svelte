@@ -100,7 +100,10 @@
 				>
 					{showFly ? 'Ocultar' : 'Mostrar'}
 				</button>
-				<select bind:value={easingName} class="rounded-lg border border-ink-200 px-2 py-1">
+				<select
+					bind:value={easingName}
+					class="field-sizing-content rounded-lg border border-ink-200 py-1 pr-8 pl-2"
+				>
 					{#each Object.keys(easings) as name (name)}
 						<option>{name}</option>
 					{/each}
@@ -214,6 +217,7 @@
 			<button onclick={() => drawRun++} class="rounded-lg border border-ink-200 px-3 py-1 text-sm">
 				Repetir
 			</button>
+			<!-- detecta que cambia la clave y fuerza la recreación del contenido. -->
 			{#key drawRun}
 				<svg
 					viewBox="0 0 200 90"
