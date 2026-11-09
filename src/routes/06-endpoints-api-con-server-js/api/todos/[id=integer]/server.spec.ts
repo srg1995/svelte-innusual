@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { asEvent, thrown } from '../../../../../test/helpers';
+import { asEvent, thrown } from '#test/helpers.js';
 import { DELETE, GET, PATCH } from './+server';
 
 const ev = <T extends (...args: never[]) => unknown>(id: number, body?: string) =>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { asEvent } from '../../../../test/helpers';
+import { asEvent } from '#test/helpers.js';
 import { GET } from './+server';
 
 const call = (headers: Record<string, string>, locals: object) =>
