@@ -20,16 +20,27 @@
 	let nameInput = $state<HTMLInputElement | null>(null);
 
 	// bind:clientWidth: propiedades de solo lectura del elemento
-	let boxWidth = $state(0);
+	// clientWidth/Height: contenido + padding. offsetWidth/Height: además borde y barras de scroll
+	let clientWidth = $state(0);
+	let clientHeight = $state(0);
+	let offsetWidth = $state(0);
+	let offsetHeight = $state(0);
 
 	// bind: sobre una prop $bindable de un componente hijo
 	let units = $state(1);
 
 	// Function bindings: bind:value={get, set} para transformar el valor
 	let celsius = $state(20);
-	const toFahrenheit = () => Math.round((celsius * 9) / 5 + 32);
+	// El estado guarda el valor exacto; solo se redondea al mostrarlo. Si se redondeara al
+	// guardar, el campo que se está editando saltaría (51 °F -> 11 °C -> 52 °F)
+	const round = (n: number) => Math.round(n * 10) / 10;
+	const getCelsius = () => round(celsius);
+	const setCelsius = (c: number) => {
+		celsius = c;
+	};
+	const toFahrenheit = () => round((celsius * 9) / 5 + 32);
 	const setFromFahrenheit = (f: number) => {
-		celsius = Math.round(((f - 32) * 5) / 9);
+		celsius = ((f - 32) * 5) / 9;
 	};
 </script>
 
@@ -92,10 +103,23 @@
 			<p class="text-sm text-ink-500">{country} · {notes.length} caracteres</p>
 		</DemoCard>
 
-		<DemoCard title="bind:clientWidth" description="Propiedades de solo lectura del elemento.">
-			<div bind:clientWidth={boxWidth} class="resize-x overflow-auto rounded-lg bg-ink-100 p-3">
-				<p class="text-sm text-ink-500">Redimensióname: {boxWidth}px</p>
+		<DemoCard
+			title="clientWidth · clientHeight · offsetWidth · offsetHeight"
+			description="Medidas de solo lectura. offset* incluye el borde (8px) y client* no."
+		>
+			<div
+				bind:clientWidth
+				bind:clientHeight
+				bind:offsetWidth
+				bind:offsetHeight
+				class="h-24 resize overflow-auto rounded-lg border-4 border-ink-200 bg-ink-100 p-3"
+			>
+				<p class="text-sm text-ink-500">Redimensióname (esquina inferior derecha)</p>
 			</div>
+			<ul class="text-sm text-ink-500">
+				<li>clientWidth: {clientWidth}px · clientHeight: {clientHeight}px</li>
+				<li>offsetWidth: {offsetWidth}px · offsetHeight: {offsetHeight}px</li>
+			</ul>
 		</DemoCard>
 
 		<DemoCard
@@ -113,7 +137,7 @@
 			<label class="flex items-center gap-2 text-sm text-ink-500">
 				°C <input
 					type="number"
-					bind:value={celsius}
+					bind:value={getCelsius, setCelsius}
 					class="w-24 rounded-lg border border-ink-200 px-2 py-1"
 				/>
 			</label>
